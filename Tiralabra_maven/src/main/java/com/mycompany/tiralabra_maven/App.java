@@ -1,13 +1,14 @@
 package com.mycompany.tiralabra_maven;
 
+import UI.UI;
+
 /**
  * Hello world!
  *
  */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+public class App {
+    private static UI kayttis = new UI();
+    public static void main( String[] args ) {
+        kayttis.run();
     }
 }
