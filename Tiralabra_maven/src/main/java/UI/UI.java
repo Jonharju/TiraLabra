@@ -20,11 +20,12 @@ public class UI {
     public static void run() {
         System.out.println("Matriisilaskin");
         System.out.println("Valitse toiminto:");
-        System.out.println("Y - yhteenlasku, S - rivin tai sarakkeen summa, K - rivin tai sarakkeen keskiarvo.");
+        System.out.println("1 - yhteenlasku, 2 - rivin tai sarakkeen summa, 3 - rivin tai sarakkeen keskiarvo.");
+        System.out.println("4 - kertolasku, 5 - koko matriisin summa, 6 - koko matriisin keskiarvo, 7 - skalaarikertolasku");
         Scanner skanneri = new Scanner(System.in);
         String toiminto = skanneri.nextLine();
         
-        if (toiminto.equals("Y")) {
+        if (toiminto.equals("1")) {
             System.out.println("Syötä ensimmäinen matriisi");
             double[][] matriisi1 = syotettyMatriisi();
             System.out.println("Ensimmäinen syötetty matriisi:");
@@ -36,6 +37,7 @@ public class UI {
             tulostaMatriisi(matriisi2);
 
             if (matriisi1.length == matriisi2.length) {
+                System.out.println("Syötä matriisi");
                 if (matriisi1[0].length == matriisi2[0].length) {
                     double[][] result = logiikka.yhteenlasku(matriisi1, matriisi2);
                     System.out.println("Tulosmatriisi:");
@@ -47,7 +49,8 @@ public class UI {
                 System.out.println("Erityyppisiä matriiseja ei voi laskea yhteen.");
             }
             
-        } else if (toiminto.equals("S")) {
+        } else if (toiminto.equals("2")) {
+            System.out.println("Syötä matriisi");
             double[][] matriisi = syotettyMatriisi();
             System.out.println("Syötetty matriisi:");
             tulostaMatriisi(matriisi);
@@ -69,7 +72,8 @@ public class UI {
             double summa = logiikka.summa(matriisi, rivi-1, sarake-1);
             System.out.println("Alkioiden summa on " + summa);
          
-        } else if (toiminto.equals("K")) {
+        } else if (toiminto.equals("3")) {
+            System.out.println("Syötä matriisi");
             double[][] matriisi = syotettyMatriisi();
             System.out.println("Syötetty matriisi:");
             tulostaMatriisi(matriisi);
@@ -89,7 +93,58 @@ public class UI {
             
             double keskiarvo = logiikka.keskiarvo(matriisi, rivi-1, sarake-1);
             System.out.println("Alkioiden keskiarvo on " + keskiarvo);
+        
+        } else if (toiminto.equals("4")) {
+            System.out.println("Syötä ensimmäinen matriisi");
+            double[][] matriisi1 = syotettyMatriisi();
+            System.out.println("Ensimmäinen syötetty matriisi:");
+            tulostaMatriisi(matriisi1);
+            
+            System.out.println("Syötä toinen matriisi");
+            double[][] matriisi2 = syotettyMatriisi();
+            System.out.println("Toinen syötetty matriisi:");
+            tulostaMatriisi(matriisi2);
+
+            if (matriisi1.length == matriisi2[0].length) {
+                 double[][] tulos = logiikka.kertolasku(matriisi1, matriisi2);
+                 System.out.println("Matriisien kertolaskun tulosmatriisi:");
+                 tulostaMatriisi(tulos);
+             } else {
+                 System.out.println("Matriiseja ei voi kertoa ellei ensimmäisessä matriisissa ole yhtä monta saraketta kuin toisessa matriisissa riviä.");
+             }
+            
+        } else if (toiminto.equals("5")) {
+            System.out.println("Syötä matriisi");
+            double[][] matriisi = syotettyMatriisi();
+            System.out.println("Syötetty matriisi:");
+            tulostaMatriisi(matriisi);
+            
+            double summa = logiikka.summaKoko(matriisi);
+            System.out.println("Alkioiden summa on " + summa);
+         
+        } else if (toiminto.equals("6")) {
+            System.out.println("Syötä matriisi");
+            double[][] matriisi = syotettyMatriisi();
+            System.out.println("Syötetty matriisi:");
+            tulostaMatriisi(matriisi);
+            
+            double keskiarvo = logiikka.keskiarvoKoko(matriisi);
+            System.out.println("Alkioiden keskiarvo on " + keskiarvo);
+        
+        } else if (toiminto.equals("7")) {
+            System.out.println("Syötä matriisi");
+            double[][] matriisi = syotettyMatriisi();
+            System.out.println("Syötetty matriisi:");
+            tulostaMatriisi(matriisi);
+            
+            System.out.println("Syötä skalaariluku");
+            int skalaari = skanneri.nextInt();
+            
+            double[][] tulos = logiikka.skalaari(matriisi, skalaari);
+            System.out.println("Matriisin skalaarin tulos: ");
+            tulostaMatriisi(matriisi);
         }
+        
     }
 
     /**
