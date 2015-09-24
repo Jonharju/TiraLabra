@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @author Jonas
  */
-public class UI {
+public class UI{
     private static Logiikka logiikka = new Logiikka();
  
     /**
@@ -22,6 +22,7 @@ public class UI {
         System.out.println("Valitse toiminto:");
         System.out.println("1 - yhteenlasku, 2 - rivin tai sarakkeen summa, 3 - rivin tai sarakkeen keskiarvo.");
         System.out.println("4 - kertolasku, 5 - koko matriisin summa, 6 - koko matriisin keskiarvo, 7 - skalaarikertolasku");
+        System.out.println("8 - determinantti, 9 - transpoosi");
         Scanner skanneri = new Scanner(System.in);
         String toiminto = skanneri.nextLine();
         
@@ -143,6 +144,22 @@ public class UI {
             double[][] tulos = logiikka.skalaari(matriisi, skalaari);
             System.out.println("Matriisin skalaarin tulos: ");
             tulostaMatriisi(matriisi);
+        } else if (toiminto.equals("8")) {
+            System.out.println("Syötä matriisi");
+            double[][] matriisi = syotettyMatriisi();
+            System.out.println("Syötetty matriisi:");
+            tulostaMatriisi(matriisi);
+            double tulos = logiikka.determinantti(matriisi);
+            System.out.println("Matriisin determinantti on: " + matriisi);
+        } else if (toiminto.equals("9")) {
+            System.out.println("Syötä matriisi");
+            double[][] matriisi = syotettyMatriisi();
+            System.out.println("Syötetty matriisi:");
+            tulostaMatriisi(matriisi);
+            
+            double[][] tulos = logiikka.transpoosi(matriisi);
+            System.out.println("Matriisin transpoosi");;
+            tulostaMatriisi(matriisi);
         }
         
     }
@@ -193,3 +210,4 @@ public class UI {
         }
     }
 }
+

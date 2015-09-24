@@ -100,6 +100,7 @@ public class Logiikka {
      */
     public double[][] yhteenlasku(double[][] matriisi1, double[][] matriisi2) {
         double[][] matriisiUusi = new double[matriisi1.length][matriisi1[0].length];
+        if (matriisi1.length != matriisi2.length || matriisi1[0].length != matriisi2[0].length ) throw new RuntimeException("Eivät ole keskenään sopivia");
         for (int i = 0; i < matriisiUusi.length; i++) {
             for (int j = 0; j < matriisiUusi[0].length; j++) {
                 matriisiUusi[i][j] = matriisi1[i][j] + matriisi2[i][j];
@@ -116,13 +117,13 @@ public class Logiikka {
      * @return
      */
     public double[][] kertolasku(double[][] matriisi1, double[][] matriisi2) {
-        double[][] matriisi = new double[matriisi2.length][matriisi1[0].length];
-        System.out.println(matriisi1[0].length + " " + matriisi2.length);
+        double[][] matriisi = new double[matriisi1.length][matriisi2[0].length];
+        if (matriisi1[0].length != matriisi2.length ) throw new RuntimeException("Eivät ole keskenään sopivia");
         for (int i = 0; i < matriisi.length; i++) {
             for (int j = 0; j < matriisi[0].length; j++) {
                 matriisi[i][j] = 0;
-                for (int k = 0; k < matriisi1.length; k++) {
-                    matriisi[i][j] = matriisi[i][j] + (matriisi1[k][j] * matriisi2[i][k]);
+                for (int k = 0; k < matriisi1[0].length; k++) {
+                    matriisi[i][j] = matriisi[i][j] + (matriisi1[i][k] * matriisi2[k][j]);
                 }
             }
         }
@@ -143,6 +144,56 @@ public class Logiikka {
             }
         }
         return matriisi;
+    }
+    
+    /**
+     * Metodi luo matriisin transpoosin
+     * 
+     * @param matriisi
+     * @return
+     */
+    public double[][] transpoosi(double[][] matriisi){
+        double[][] transpoosi = new double[matriisi[0].length][matriisi.length];
+        for(int i = 0; i < matriisi.length; i++){
+            for(int j = 0; j < matriisi[0].length; j++){
+                transpoosi[j][i] = matriisi[i][j];
+            }
+        }
+        return transpoosi;
+    }
+    
+    /**
+     * Metodi laskee matriisin determinantin, jos se on neliömatriisi
+     * 
+     * @param matriisi
+     * @return
+     */
+    public double determinantti(double[][] matriisi){
+        double summa = 0;
+        int s;
+        if (matriisi.length != matriisi[0].length ) throw new RuntimeException("Ei ole neliö matriisi");
+        if(matriisi.length == 1){
+            return (matriisi[0][0]);
+        }
+        for(int i = 0; i < matriisi.length; i++){
+            double[][] pienempi = new double[matriisi.length-1][matriisi.length-1];
+            for(int a = 1; a < matriisi.length; a++){
+                for(int b = 0; b < matriisi.length; b++){
+                    if(b<i){
+                        pienempi[a-1][b]=matriisi[a][b];
+                    } else if(b>i){
+                        pienempi[a-1][b-1]=matriisi[a][b];
+                    }
+                }
+            }
+            if(i%2==0){
+                s=1;
+            } else {
+                s=-1;
+            }
+            summa += s*matriisi[0][i]*(determinantti(pienempi));
+        }
+        return(summa);
     }
 
 }
