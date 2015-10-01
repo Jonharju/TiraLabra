@@ -169,6 +169,7 @@ public class Logiikka {
      * @return
      */
     public double determinantti(double[][] matriisi){
+        if (matriisi.length != matriisi[0].length ) throw new RuntimeException("Ei ole neliö matriisi");
         double summa = 0;
         int s;
         if (matriisi.length != matriisi[0].length ) throw new RuntimeException("Ei ole neliö matriisi");
@@ -195,5 +196,31 @@ public class Logiikka {
         }
         return(summa);
     }
-
+    
+    /**
+     * Metodi laskee Matriisin determinanten, käyttäen apunaan LU-hajotelmaa
+     * 
+     * @param matriisi
+     * @return
+     */
+    public double determinanttiLU(double[][] matriisi) {
+        if (matriisi.length != matriisi[0].length ) throw new RuntimeException("Ei ole neliö matriisi");
+        LUhajotelma logic = new LUhajotelma();
+        matriisi = logic.LUHajotelma(matriisi);
+        return logic.determinanttiU(matriisi);
+    }
+    
+    /**
+     * Metodi laskee neliömatriisin käänteismatriisin
+     * 
+     * @param matriisi
+     * @return
+     */
+    public double[][] kaanteis(double[][] matriisi) {
+        Kaanteis k = new Kaanteis();
+        if (matriisi.length != matriisi[0].length ) throw new RuntimeException("Ei ole neliö matriisi");
+        double[][] matrix = k.lisaaYksikkoMatriisi(matriisi);
+        double [][] rrefMatrix = k.redusoitu(matrix);
+        return k.jaaKaanteisMatriisi(rrefMatrix);
+    }
 }

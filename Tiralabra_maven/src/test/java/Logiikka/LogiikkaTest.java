@@ -107,6 +107,14 @@ public class LogiikkaTest {
         }
     }
     
+      @Test(expected = RuntimeException.class)
+    public void yhteenEiLasketaJosMatriisiEiOleNeliomatriisi() {
+        Logiikka testlogic = new Logiikka();
+        double[][] matA = {{2, 2}, {1, 2}, {4, 9}};
+        double[][] matB = {{2,2}};
+        double[][] yht = testlogic.yhteenlasku(matA, matB);
+    }
+    
     @Test
     public void testiKeskiarvoRivi() {
         Logiikka logiikka = new Logiikka();
@@ -286,6 +294,14 @@ public class LogiikkaTest {
        
     }
     
+    @Test(expected = RuntimeException.class)
+    public void kertomaEiLasketaJosMatriisiEiOleNeliomatriisi() {
+        Logiikka testlogic = new Logiikka();
+        double[][] matA = {{2, 2}, {1, 2}, {4, 9}};
+        double[][] matB = {{2,2}};
+        double[][] kert = testlogic.kertolasku(matA, matB);
+    }
+    
     
     @Test
     public void testSkalaari() {
@@ -341,6 +357,13 @@ public class LogiikkaTest {
         double actual = logiikka.determinantti(matriisi);
         double expected = 178;
         assertTrue(actual == expected);
+    }
+    
+    @Test(expected = RuntimeException.class)
+    public void DetEiLasketaJosMatriisiEiOleNeliomatriisi() {
+        Logiikka testlogic = new Logiikka();
+        double[][] matA = {{2, 2}, {1, 2}, {4, 9}};
+        double det = testlogic.determinantti(matA);
     }
     
     @Test
@@ -412,5 +435,120 @@ public class LogiikkaTest {
             }
         }
     }
+    
+        @Test
+        public void testDeterminantti2x2LU() {
+        Logiikka logiikka = new Logiikka();
+        double[][] matriisi = new double[2][2];
+        matriisi[0][0] = 14;
+        matriisi[0][1] = 22;
+        matriisi[1][0] = 3;
+        matriisi[1][1] = 7;
+        double actual = logiikka.determinanttiLU(matriisi);
+        double expected = 32;
+        assertTrue(actual == expected);
+        }
+    
+        @Test
+        public void testDeterminantti3x3LU() {
+            Logiikka logiikka = new Logiikka();
+            double[][] matriisi = new double[3][3];
+            matriisi[0][0] = 2;
+            matriisi[0][1] = 3;
+            matriisi[0][2] = 3;
+            matriisi[1][0] = 3;
+            matriisi[1][1] = 1;
+            matriisi[1][2] = 2;
+            matriisi[2][0] = 4;
+            matriisi[2][1] = 5;
+            matriisi[2][2] = 3;
+            double actual = logiikka.determinanttiLU(matriisi);
+            double expected = 16;
+            assertTrue(actual == expected);
+        }
+    
+    @Test
+    public void testDeterminantti4x4LU() {
+        Logiikka logiikka = new Logiikka();
+        double[][] matriisi = {{3,7,5,0},{8,8,9,5},{1,7,8,9},{6,0,3,2}};
+        double actual = logiikka.determinanttiLU(matriisi);
+        double expected = 178;
+        assertTrue(actual == expected);
+    }
+    
+    @Test
+    public void testDeterminant2x2withLUDecomposition() {
+        Logiikka testlogic = new Logiikka();
+        double[][] matrix = new double[2][2];
+        matrix[0][0] = 14;
+        matrix[0][1] = 22;
+        matrix[1][0] = 3;
+        matrix[1][1] = 7;
+        double actual = testlogic.determinanttiLU(matrix);
+        double expected = 32;
+        assertTrue(actual == expected);
+    }
 
+    @Test
+    public void testDeterminant5x5withLUDecomposition() {
+        Logiikka testlogic = new Logiikka();
+        double[][] matrix = new double[5][5];
+        matrix[0][0] = 1;
+        matrix[0][1] = 0;
+        matrix[0][2] = 1;
+        matrix[0][3] = 0;
+        matrix[0][4] = 1;
+        matrix[1][0] = 1;
+        matrix[1][1] = 4;
+        matrix[1][2] = 5;
+        matrix[1][3] = 6;
+        matrix[1][4] = 1;
+        matrix[2][0] = 10;
+        matrix[2][1] = 0;
+        matrix[2][2] = 1;
+        matrix[2][3] = 0;
+        matrix[2][4] = 10;
+        matrix[3][0] = 1;
+        matrix[3][1] = 7;
+        matrix[3][2] = 8;
+        matrix[3][3] = 9;
+        matrix[3][4] = 1;
+        matrix[4][0] = 1;
+        matrix[4][1] = 2;
+        matrix[4][2] = -1;
+        matrix[4][3] = 2;
+        matrix[4][4] = 1;
+        double actual = testlogic.determinanttiLU(matrix);
+        double expected = 0;
+        assertTrue(actual == expected);
+    }
+    
+    @Test(expected = RuntimeException.class)
+    public void LUDetEiLasketaJosMatriisiEiOleNeliomatriisi() {
+        Logiikka testlogic = new Logiikka();
+        double[][] matA = {{2, 2}, {1, 2}, {4, 9}};
+        double det = testlogic.determinanttiLU(matA);
+    }
+    
+    @Test
+    public void matriisinKaanteismatriisiPalauttaaOikein() {
+        Logiikka testlogic = new Logiikka();
+        double[][] matA = {{2, 2}, {1, 2}};
+        double[][] matB = {{1, -1}, {-0.5, 1}};
+        
+        double[][] kaant = testlogic.kaanteis(matA);
+        
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                assertTrue(matB[i][j] == kaant[i][j]);
+            }
+        }
+    }
+    
+    @Test(expected = RuntimeException.class)
+    public void kaanteismatriisiaEiLasketaJosMatriisiEiOleNeliomatriisi() {
+        Logiikka testlogic = new Logiikka();
+        double[][] matA = {{2, 2}, {1, 2}, {4, 9}};
+        double[][] kaant = testlogic.kaanteis(matA);
+    }
 }

@@ -22,7 +22,7 @@ public class UI{
         System.out.println("Valitse toiminto:");
         System.out.println("1 - yhteenlasku, 2 - rivin tai sarakkeen summa, 3 - rivin tai sarakkeen keskiarvo.");
         System.out.println("4 - kertolasku, 5 - koko matriisin summa, 6 - koko matriisin keskiarvo, 7 - skalaarikertolasku");
-        System.out.println("8 - determinantti, 9 - transpoosi");
+        System.out.println("8 - determinantti, 9 - transpoosi, 0 - käänteismatriisi");
         Scanner skanneri = new Scanner(System.in);
         String toiminto = skanneri.nextLine();
         
@@ -160,6 +160,15 @@ public class UI{
             double[][] tulos = logiikka.transpoosi(matriisi);
             System.out.println("Matriisin transpoosi");;
             tulostaMatriisi(matriisi);
+        } else if (toiminto.equals("0")) {
+            System.out.println("Syötä matriisi");
+            double[][] matriisi = syotettyMatriisi();
+            System.out.println("Syötetty matriisi:");
+            tulostaMatriisi(matriisi);
+            
+            double[][] tulos = logiikka.kaanteis(matriisi);
+            System.out.println("Matriisin käänteismatriisi");;
+            tulostaMatriisi(matriisi);
         }
         
     }
@@ -171,27 +180,26 @@ public class UI{
      */
     public static double[][] syotettyMatriisi() {
         Scanner skanneri = new Scanner(System.in);
-        System.out.println("Anna matriisin sarakkeiden lukumäärä (toistaiseksi enintään 5).");
+        try {  
+        System.out.println("Anna matriisin sarakkeiden lukumäärä");
+        int sarakkeet = Integer.parseInt(skanneri.nextLine());
+        System.out.println("Anna matriisin rivien lukumäärä");
+        int rivit = Integer.parseInt(skanneri.nextLine());
         
-        int sarakkeet = skanneri.nextInt();
-        if (sarakkeet > 5) {
-            sarakkeet = 5;
-        }
-        System.out.println("Anna matriisin rivien lukumäärä (toistaiseksi enintään 5).");
-        int rivit = skanneri.nextInt();
-        if (rivit > 5) {
-            rivit = 5;
-        }
-        
-        double[][] matriisi = new double[sarakkeet][rivit];
+        double[][] matriisi = new double[rivit][sarakkeet];
         
         for (int i = 0; i < rivit; i++) {
+            System.out.println("Anna matriisin " + (i+1) + " rivi.");
+            String input = skanneri.nextLine();
+            String[] numbers = input.split("[ ]+");
             for (int j = 0; j < sarakkeet; j++) {
-                System.out.println("Anna matriisin " + (i + 1) + ". rivin " + (j + 1) + ". luku.");
-                matriisi[j][i] = skanneri.nextInt();
+                matriisi[i][j] = Integer.parseInt(numbers[j]);
             }
         }
-        return matriisi;
+            return matriisi;
+        } catch (Exception e) {
+            return null;
+        }
     }
  
     /**
@@ -203,7 +211,7 @@ public class UI{
         for (int i = 0; i < matriisi[0].length; i++) {
             String rivi = "[";
             for (int j = 0; j < matriisi.length; j++) {
-                rivi = rivi.concat(" " + matriisi[j][i]);
+                rivi = rivi.concat(" " + matriisi[i][j]);
             }
             rivi = rivi.concat(" ]");
             System.out.println(rivi);

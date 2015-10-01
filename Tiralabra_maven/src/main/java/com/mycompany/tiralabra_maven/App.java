@@ -10,6 +10,7 @@ import Logiikka.Logiikka;
 public class App {
     private static Logiikka l = new Logiikka();
     public static void main( String[] args ) {
+        Logiikka logiikka = new Logiikka();
         UI kayttis = new UI();
         kayttis.run();
     }
