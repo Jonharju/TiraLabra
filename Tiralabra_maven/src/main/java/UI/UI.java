@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 public class UI{
     private static Logiikka logiikka = new Logiikka();
- 
+    
     /**
      * Tekstikäyttöliittymä
      */
@@ -27,151 +27,31 @@ public class UI{
         String toiminto = skanneri.nextLine();
         
         if (toiminto.equals("1")) {
-            System.out.println("Syötä ensimmäinen matriisi");
-            double[][] matriisi1 = syotettyMatriisi();
-            System.out.println("Ensimmäinen syötetty matriisi:");
-            tulostaMatriisi(matriisi1);
-            
-            System.out.println("Syötä toinen matriisi");
-            double[][] matriisi2 = syotettyMatriisi();
-            System.out.println("Toinen syötetty matriisi:");
-            tulostaMatriisi(matriisi2);
-
-            if (matriisi1.length == matriisi2.length) {
-                System.out.println("Syötä matriisi");
-                if (matriisi1[0].length == matriisi2[0].length) {
-                    double[][] result = logiikka.yhteenlasku(matriisi1, matriisi2);
-                    System.out.println("Tulosmatriisi:");
-                    tulostaMatriisi(result);
-                 } else {
-                    System.out.println("Matriisit ovat erityyppiset");
-                 }
-             } else {
-                System.out.println("Erityyppisiä matriiseja ei voi laskea yhteen.");
-            }
+            yhteen();
             
         } else if (toiminto.equals("2")) {
-            System.out.println("Syötä matriisi");
-            double[][] matriisi = syotettyMatriisi();
-            System.out.println("Syötetty matriisi:");
-            tulostaMatriisi(matriisi);
-            
-            System.out.println("R - rivi, S - sarake");
-            String syote = skanneri.nextLine();
-            
-            int rivi = -1;
-            int sarake = -1;
-            
-            if (syote.equals("R")) {
-                System.out.println("Rivin numero");
-                rivi = skanneri.nextInt();
-            } else if (syote.equals("S")) {
-                System.out.println("Sarakkeen numero");
-                sarake = skanneri.nextInt();
-            }
-            
-            double summa = logiikka.summa(matriisi, rivi-1, sarake-1);
-            System.out.println("Alkioiden summa on " + summa);
-         
+            rsSumma();         
         } else if (toiminto.equals("3")) {
-            System.out.println("Syötä matriisi");
-            double[][] matriisi = syotettyMatriisi();
-            System.out.println("Syötetty matriisi:");
-            tulostaMatriisi(matriisi);
-            
-            System.out.println("R - rivi, S - sarake");
-            String syote = skanneri.nextLine();
-            int rivi = -1;
-            int sarake = -1;
-            
-            if (syote.equals("R")) {
-                System.out.println("Rivin numero, alkaa nollasta");
-                rivi = skanneri.nextInt();
-             } else if (syote.equals("S")) {
-                System.out.println("Sarakkeen numero, alkaa nollasta");
-                sarake = skanneri.nextInt();
-            }
-            
-            double keskiarvo = logiikka.keskiarvo(matriisi, rivi-1, sarake-1);
-            System.out.println("Alkioiden keskiarvo on " + keskiarvo);
-        
+            rsKeskiarvo();
         } else if (toiminto.equals("4")) {
-            System.out.println("Syötä ensimmäinen matriisi");
-            double[][] matriisi1 = syotettyMatriisi();
-            System.out.println("Ensimmäinen syötetty matriisi:");
-            tulostaMatriisi(matriisi1);
-            
-            System.out.println("Syötä toinen matriisi");
-            double[][] matriisi2 = syotettyMatriisi();
-            System.out.println("Toinen syötetty matriisi:");
-            tulostaMatriisi(matriisi2);
-
-            if (matriisi1.length == matriisi2[0].length) {
-                 double[][] tulos = logiikka.kertolasku(matriisi1, matriisi2);
-                 System.out.println("Matriisien kertolaskun tulosmatriisi:");
-                 tulostaMatriisi(tulos);
-             } else {
-                 System.out.println("Matriiseja ei voi kertoa ellei ensimmäisessä matriisissa ole yhtä monta saraketta kuin toisessa matriisissa riviä.");
-             }
-            
+            kertolasku();
         } else if (toiminto.equals("5")) {
-            System.out.println("Syötä matriisi");
-            double[][] matriisi = syotettyMatriisi();
-            System.out.println("Syötetty matriisi:");
-            tulostaMatriisi(matriisi);
-            
-            double summa = logiikka.summaKoko(matriisi);
-            System.out.println("Alkioiden summa on " + summa);
-         
+           summa();
         } else if (toiminto.equals("6")) {
-            System.out.println("Syötä matriisi");
-            double[][] matriisi = syotettyMatriisi();
-            System.out.println("Syötetty matriisi:");
-            tulostaMatriisi(matriisi);
-            
-            double keskiarvo = logiikka.keskiarvoKoko(matriisi);
-            System.out.println("Alkioiden keskiarvo on " + keskiarvo);
+            keskiarvo();
         
         } else if (toiminto.equals("7")) {
-            System.out.println("Syötä matriisi");
-            double[][] matriisi = syotettyMatriisi();
-            System.out.println("Syötetty matriisi:");
-            tulostaMatriisi(matriisi);
-            
-            System.out.println("Syötä skalaariluku");
-            int skalaari = skanneri.nextInt();
-            
-            double[][] tulos = logiikka.skalaari(matriisi, skalaari);
-            System.out.println("Matriisin skalaarin tulos: ");
-            tulostaMatriisi(matriisi);
+            skalaari();
         } else if (toiminto.equals("8")) {
-            System.out.println("Syötä matriisi");
-            double[][] matriisi = syotettyMatriisi();
-            System.out.println("Syötetty matriisi:");
-            tulostaMatriisi(matriisi);
-            double tulos = logiikka.determinantti(matriisi);
-            System.out.println("Matriisin determinantti on: " + matriisi);
+           determinantti();
         } else if (toiminto.equals("9")) {
-            System.out.println("Syötä matriisi");
-            double[][] matriisi = syotettyMatriisi();
-            System.out.println("Syötetty matriisi:");
-            tulostaMatriisi(matriisi);
-            
-            double[][] tulos = logiikka.transpoosi(matriisi);
-            System.out.println("Matriisin transpoosi");;
-            tulostaMatriisi(matriisi);
+            transpoosi();
         } else if (toiminto.equals("0")) {
-            System.out.println("Syötä matriisi");
-            double[][] matriisi = syotettyMatriisi();
-            System.out.println("Syötetty matriisi:");
-            tulostaMatriisi(matriisi);
-            
-            double[][] tulos = logiikka.kaanteis(matriisi);
-            System.out.println("Matriisin käänteismatriisi");;
-            tulostaMatriisi(matriisi);
+            kaanteis();
         }
         
     }
+    
 
     /**
      * Metodi luo käyttäjän sille antamien arvojen perusteella matriisin, jonka se palauttaa
@@ -216,6 +96,142 @@ public class UI{
             rivi = rivi.concat(" ]");
             System.out.println(rivi);
         }
+    }
+    
+    public static void yhteen(){
+        System.out.println("Syötä ensimmäinen matriisi");
+            double[][] matriisi1 = syotettyMatriisi();
+            
+            System.out.println("Syötä toinen matriisi");
+            double[][] matriisi2 = syotettyMatriisi();
+
+            if (matriisi1.length == matriisi2.length) {
+                if (matriisi1[0].length == matriisi2[0].length) {
+                    double[][] result = logiikka.yhteenlasku(matriisi1, matriisi2);
+                    System.out.println("Tulosmatriisi:");
+                    tulostaMatriisi(result);
+                 } else {
+                    System.out.println("Matriisit ovat erityyppiset");
+                 }
+             } else {
+                System.out.println("Erityyppisiä matriiseja ei voi laskea yhteen.");
+            }
+    }
+    
+    public static void rsSumma(){
+        Scanner skanneri = new Scanner(System.in);
+        System.out.println("Syötä matriisi");
+            double[][] matriisi = syotettyMatriisi();
+            
+            System.out.println("R - rivi, S - sarake");
+            String syote = skanneri.nextLine();
+            
+            int rivi = -1;
+            int sarake = -1;
+            
+            if (syote.equals("R")) {
+                System.out.println("Rivin numero");
+                rivi = skanneri.nextInt();
+            } else if (syote.equals("S")) {
+                System.out.println("Sarakkeen numero");
+                sarake = skanneri.nextInt();
+            }
+            
+            double summa = logiikka.summa(matriisi, rivi-1, sarake-1);
+            System.out.println("Alkioiden summa on " + summa);
+    }
+    
+    public static void rsKeskiarvo(){
+        Scanner skanneri = new Scanner(System.in);
+        System.out.println("Syötä matriisi");
+            double[][] matriisi = syotettyMatriisi();
+            
+            System.out.println("R - rivi, S - sarake");
+            String syote = skanneri.nextLine();
+            int rivi = -1;
+            int sarake = -1;
+            
+            if (syote.equals("R")) {
+                System.out.println("Rivin numero, alkaa nollasta");
+                rivi = skanneri.nextInt();
+             } else if (syote.equals("S")) {
+                System.out.println("Sarakkeen numero, alkaa nollasta");
+                sarake = skanneri.nextInt();
+            }
+            
+            double keskiarvo = logiikka.keskiarvo(matriisi, rivi-1, sarake-1);
+            System.out.println("Alkioiden keskiarvo on " + keskiarvo);
+        
+    }
+    
+    public static void kertolasku(){
+        System.out.println("Syötä ensimmäinen matriisi");
+            double[][] matriisi1 = syotettyMatriisi();
+            
+            System.out.println("Syötä toinen matriisi");
+            double[][] matriisi2 = syotettyMatriisi();
+
+            if (matriisi1.length == matriisi2[0].length) {
+                 double[][] tulos = logiikka.kertolasku(matriisi1, matriisi2);
+                 System.out.println("Matriisien kertolaskun tulosmatriisi:");
+                 tulostaMatriisi(tulos);
+            } else {
+                 System.out.println("Matriiseja ei voi kertoa ellei ensimmäisessä matriisissa ole yhtä monta saraketta kuin toisessa matriisissa riviä.");
+            }
+    }
+    
+    public static void summa(){
+        System.out.println("Syötä matriisi");
+        double[][] matriisi = syotettyMatriisi();
+            
+        double summa = logiikka.summaKoko(matriisi);
+        System.out.println("Alkioiden summa on " + summa);
+    }
+    public static void keskiarvo(){
+        System.out.println("Syötä matriisi");
+            double[][] matriisi = syotettyMatriisi();
+            
+            double keskiarvo = logiikka.keskiarvoKoko(matriisi);
+            System.out.println("Alkioiden keskiarvo on " + keskiarvo);
+    }
+    
+    public static void skalaari(){
+        Scanner skanneri = new Scanner(System.in);
+        System.out.println("Syötä matriisi");
+            double[][] matriisi = syotettyMatriisi();
+            
+            System.out.println("Syötä skalaariluku");
+            int skalaari = skanneri.nextInt();
+            
+            double[][] tulos = logiikka.skalaari(matriisi, skalaari);
+            System.out.println("Matriisin skalaarin tulos: ");
+            tulostaMatriisi(matriisi);
+    }
+    
+    public static void determinantti(){
+         System.out.println("Syötä matriisi");
+            double[][] matriisi = syotettyMatriisi();
+            
+            double tulos = logiikka.determinantti(matriisi);
+            System.out.println("Matriisin determinantti on: " + matriisi);
+    }
+    
+    public static void transpoosi(){
+        System.out.println("Syötä matriisi");
+            double[][] matriisi = syotettyMatriisi();
+            
+            double[][] tulos = logiikka.transpoosi(matriisi);
+            System.out.println("Matriisin transpoosi");;
+            tulostaMatriisi(matriisi);
+    }
+    
+    public static void kaanteis(){
+        System.out.println("Syötä matriisi");
+            double[][] matriisi = syotettyMatriisi();
+            
+            double[][] tulos = logiikka.kaanteis(matriisi);
+            System.out.println("Matriisin käänteismatriisi");;
+            tulostaMatriisi(matriisi);
     }
 }
 
