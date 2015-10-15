@@ -17,17 +17,17 @@ public class Logiikka {
      * @param matriisi
      * @param rivi
      * @param sarake
-     * @return
+     * @return summa
      */
-    public double summa(double[][] matriisi, int rivi, int sarake) {
+    public double summa(Matriisi matriisi, int rivi, int sarake) {
         double summa = 0;
         if (rivi >= 0) {
-            for (int i = 0; i < matriisi.length; i++) {
-                summa = summa + matriisi[i][rivi];
+            for (int i = 0; i < matriisi.getRivit(); i++) {
+                summa = summa + matriisi.getArvot()[i][rivi];
             }
         } else if (sarake >= 0) {
-            for (int i = 0; i < matriisi[0].length; i++) {
-                summa = summa + matriisi[sarake][i];
+            for (int i = 0; i < matriisi.getSarakkeet(); i++) {
+                summa = summa + matriisi.getArvot()[sarake][i];
             }
         }
         return summa;
@@ -37,11 +37,11 @@ public class Logiikka {
      * Metodi laskee kaikkien alkioiden summan ja palauttaa sen
      * 
      * @param matriisi
-     * @return
+     * @return summa
      */
-    public double summaKoko(double[][] matriisi) {
+    public double summaKoko(Matriisi matriisi) {
         double summa = 0;
-            for (int i = 0; i < matriisi.length; i++) {
+            for (int i = 0; i < matriisi.rivit; i++) {
                 summa = summa + summa(matriisi, -1, i);
             }
         return summa;
@@ -56,17 +56,17 @@ public class Logiikka {
      * @param sarake
      * @return
      */
-    public double keskiarvo(double[][] matriisi, int rivi, int sarake) {
+    public double keskiarvo(Matriisi matriisi, int rivi, int sarake) {
         double keskiarvo = 0;
         int maara = 0;
         if (rivi >= 0) {
-            for (int i = 0; i < matriisi.length; i++) {
-                keskiarvo = keskiarvo + matriisi[i][rivi];
+            for (int i = 0; i < matriisi.getRivit(); i++) {
+                keskiarvo = keskiarvo + matriisi.getArvot()[i][rivi];
                 maara++;
             }
         } else if (sarake >= 0) {
-            for (int i = 0; i < matriisi[0].length; i++) {
-                keskiarvo = keskiarvo + matriisi[sarake][i];
+            for (int i = 0; i < matriisi.getSarakkeet(); i++) {
+                keskiarvo = keskiarvo + matriisi.getArvot()[sarake][i];
                 maara++;
             }
         }
@@ -80,10 +80,10 @@ public class Logiikka {
      * @param matriisi
      * @return
      */
-    public double keskiarvoKoko(double[][] matriisi) {
+    public double keskiarvoKoko(Matriisi matriisi) {
         double keskiarvo = 0;
-        int maara = matriisi.length * matriisi[0].length;
-            for (int i = 0; i < matriisi.length; i++) {
+        int maara = matriisi.getRivit() * matriisi.getSarakkeet();
+            for (int i = 0; i < matriisi.getRivit(); i++) {
                 keskiarvo = keskiarvo + summa(matriisi, -1, i);
             }
         
@@ -98,15 +98,16 @@ public class Logiikka {
      * @param matriisi2
      * @return 
      */
-    public double[][] yhteenlasku(double[][] matriisi1, double[][] matriisi2) {
-        double[][] matriisiUusi = new double[matriisi1.length][matriisi1[0].length];
-        if (matriisi1.length != matriisi2.length || matriisi1[0].length != matriisi2[0].length ) throw new RuntimeException("Eivät ole keskenään sopivia");
+    public Matriisi yhteenlasku(Matriisi matriisi1, Matriisi matriisi2) {
+        double[][] matriisiUusi = new double[matriisi1.getRivit()][matriisi1.getSarakkeet()];
+        if (matriisi1.getRivit() != matriisi2.getRivit() || matriisi1.getSarakkeet() != matriisi2.getSarakkeet() ) throw new RuntimeException("Eivät ole keskenään sopivia");
         for (int i = 0; i < matriisiUusi.length; i++) {
             for (int j = 0; j < matriisiUusi[0].length; j++) {
-                matriisiUusi[i][j] = matriisi1[i][j] + matriisi2[i][j];
+                matriisiUusi[i][j] = matriisi1.getArvot()[i][j] + matriisi2.getArvot()[i][j];
             }
         }
-        return matriisiUusi;
+        Matriisi uusi = new Matriisi(matriisiUusi);
+        return uusi;
     }
     
     /**
@@ -116,18 +117,19 @@ public class Logiikka {
      * @param matriisi2
      * @return
      */
-    public double[][] kertolasku(double[][] matriisi1, double[][] matriisi2) {
-        double[][] matriisi = new double[matriisi1.length][matriisi2[0].length];
-        if (matriisi1[0].length != matriisi2.length ) throw new RuntimeException("Eivät ole keskenään sopivia");
-        for (int i = 0; i < matriisi.length; i++) {
-            for (int j = 0; j < matriisi[0].length; j++) {
+    public Matriisi kertolasku(Matriisi matriisi1, Matriisi matriisi2) {
+        double[][] matriisi = new double[matriisi1.getRivit()][matriisi2.getSarakkeet()];
+        if (matriisi1.getSarakkeet()!= matriisi2.getRivit() ) throw new RuntimeException("Eivät ole keskenään sopivia");
+        for (int i = 0; i < matriisi1.getRivit(); i++) {
+            for (int j = 0; j < matriisi2.getSarakkeet(); j++) {
                 matriisi[i][j] = 0;
-                for (int k = 0; k < matriisi1[0].length; k++) {
-                    matriisi[i][j] = matriisi[i][j] + (matriisi1[i][k] * matriisi2[k][j]);
+                for (int k = 0; k < matriisi1.getSarakkeet(); k++) {
+                    matriisi[i][j] = matriisi[i][j] + (matriisi1.getArvot()[i][k] * matriisi2.getArvot()[k][j]);
                 }
             }
         }
-        return matriisi;
+        Matriisi m = new Matriisi(matriisi);
+        return m;
     }
     
     /**
@@ -137,13 +139,15 @@ public class Logiikka {
      * @param skalaari
      * @return
      */
-    public double[][] skalaari(double[][] matriisi, double skalaari) {
-        for (int i = 0; i < matriisi.length; i++) {
-            for (int j = 0; j < matriisi[0].length; j++) {
-                matriisi[i][j] = matriisi[i][j] * skalaari;
+    public Matriisi skalaari(Matriisi matriisi, double skalaari) {
+        double[][] matriisiUusi = new double[matriisi.getRivit()][matriisi.getSarakkeet()];
+        for (int i = 0; i < matriisi.getRivit(); i++) {
+            for (int j = 0; j < matriisi.getSarakkeet(); j++) {
+                matriisiUusi[i][j] = matriisi.getArvot()[i][j] * skalaari;
             }
         }
-        return matriisi;
+        Matriisi uusi = new Matriisi(matriisiUusi);
+        return uusi;
     }
     
     /**
@@ -152,14 +156,15 @@ public class Logiikka {
      * @param matriisi
      * @return
      */
-    public double[][] transpoosi(double[][] matriisi){
-        double[][] transpoosi = new double[matriisi[0].length][matriisi.length];
-        for(int i = 0; i < matriisi.length; i++){
-            for(int j = 0; j < matriisi[0].length; j++){
-                transpoosi[j][i] = matriisi[i][j];
+    public Matriisi transpoosi(Matriisi matriisi){
+        double[][] transpoosi = new double[matriisi.getSarakkeet()][matriisi.getRivit()];
+        for(int i = 0; i < matriisi.getRivit(); i++){
+            for(int j = 0; j < matriisi.getSarakkeet(); j++){
+                transpoosi[j][i] = matriisi.getArvot()[i][j];
             }
         }
-        return transpoosi;
+        Matriisi t = new Matriisi(transpoosi);
+        return t;
     }
     
     /**
@@ -168,22 +173,22 @@ public class Logiikka {
      * @param matriisi
      * @return
      */
-    public double determinantti(double[][] matriisi){
-        if (matriisi.length != matriisi[0].length ) throw new RuntimeException("Ei ole neliö matriisi");
+    public double determinantti(Matriisi matriisi){
+        if (matriisi.getRivit() != matriisi.getSarakkeet() ) throw new RuntimeException("Ei ole neliö matriisi");
         double summa = 0;
         int s;
-        if (matriisi.length != matriisi[0].length ) throw new RuntimeException("Ei ole neliö matriisi");
-        if(matriisi.length == 1){
-            return (matriisi[0][0]);
+        if (matriisi.getRivit() != matriisi.getSarakkeet() ) throw new RuntimeException("Ei ole neliö matriisi");
+        if(matriisi.getRivit()== 1){
+            return (matriisi.getArvot()[0][0]);
         }
-        for(int i = 0; i < matriisi.length; i++){
-            double[][] pienempi = new double[matriisi.length-1][matriisi.length-1];
-            for(int a = 1; a < matriisi.length; a++){
-                for(int b = 0; b < matriisi.length; b++){
+        for(int i = 0; i < matriisi.getRivit(); i++){
+            double[][] pienempi = new double[matriisi.getRivit()-1][matriisi.getSarakkeet()-1];
+            for(int a = 1; a < matriisi.getRivit(); a++){
+                for(int b = 0; b < matriisi.getSarakkeet(); b++){
                     if(b<i){
-                        pienempi[a-1][b]=matriisi[a][b];
+                        pienempi[a-1][b]=matriisi.getArvot()[a][b];
                     } else if(b>i){
-                        pienempi[a-1][b-1]=matriisi[a][b];
+                        pienempi[a-1][b-1]=matriisi.getArvot()[a][b];
                     }
                 }
             }
@@ -192,7 +197,8 @@ public class Logiikka {
             } else {
                 s=-1;
             }
-            summa += s*matriisi[0][i]*(determinantti(pienempi));
+            Matriisi p = new Matriisi(pienempi);
+            summa += s*matriisi.getArvot()[0][i]*(determinantti(p));
         }
         return(summa);
     }
@@ -203,11 +209,11 @@ public class Logiikka {
      * @param matriisi
      * @return
      */
-    public double determinanttiLU(double[][] matriisi) {
-        if (matriisi.length != matriisi[0].length ) throw new RuntimeException("Ei ole neliö matriisi");
+    public double determinanttiLU(Matriisi matriisi) {
+        if (matriisi.getRivit() != matriisi.getSarakkeet() ) throw new RuntimeException("Ei ole neliö matriisi");
         LUhajotelma logic = new LUhajotelma();
-        matriisi = logic.LUHajotelma(matriisi);
-        return logic.determinanttiU(matriisi);
+        matriisi.setArvot(logic.LUHajotelma(matriisi.getArvot()));
+        return logic.determinanttiU(matriisi.getArvot());
     }
     
     /**
@@ -216,11 +222,11 @@ public class Logiikka {
      * @param matriisi
      * @return
      */
-    public double[][] kaanteis(double[][] matriisi) {
+    public Matriisi kaanteis(Matriisi matriisi) {
         Kaanteis k = new Kaanteis();
-        if (matriisi.length != matriisi[0].length ) throw new RuntimeException("Ei ole neliö matriisi");
-        double[][] matrix = k.lisaaYksikkoMatriisi(matriisi);
+        if (matriisi.getRivit() != matriisi.getSarakkeet()) throw new RuntimeException("Ei ole neliö matriisi");
+        double[][] matrix = k.lisaaYksikkoMatriisi(matriisi.getArvot());
         double [][] rrefMatrix = k.redusoitu(matrix);
-        return k.jaaKaanteisMatriisi(rrefMatrix);
+        return new Matriisi(k.jaaKaanteisMatriisi(rrefMatrix));
     }
 }

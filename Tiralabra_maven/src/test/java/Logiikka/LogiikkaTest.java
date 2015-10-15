@@ -50,10 +50,12 @@ public class LogiikkaTest {
         matriisi2[0][1] = 7;
         matriisi2[1][0] = 6;
         matriisi2[1][1] = 5;
-        double[][] matrix = logiikka.yhteenlasku(matriisi1, matriisi2);
+        Matriisi m1 = new Matriisi(matriisi1);
+        Matriisi m2 = new Matriisi(matriisi2);
+        Matriisi matrix = logiikka.yhteenlasku(m1, m2);
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
-                double actual = matrix[i][j];
+                double actual = matrix.getArvot()[i][j];
                 double expected = matriisi1[i][j] + matriisi2[i][j];
                 assertTrue(actual == expected);
             }
@@ -82,10 +84,12 @@ public class LogiikkaTest {
         matriisi2[2][0] = 1;
         matriisi2[2][1] = 1;
         matriisi2[2][2] = 1;
-        double[][] matrix = logiikka.yhteenlasku(matriisi1, matriisi2);
+        Matriisi m1 = new Matriisi(matriisi1);
+        Matriisi m2 = new Matriisi(matriisi2);
+        Matriisi matrix = logiikka.yhteenlasku(m1, m2);
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
-                double actual = matrix[i][j];
+                double actual = matrix.getArvot()[i][j];
                 double expected = matriisi1[i][j] + matriisi2[i][j];
                 assertTrue(actual == 2);
             }
@@ -97,10 +101,12 @@ public class LogiikkaTest {
         double[][] matriisi1 = {{6, -3},{22, -3},{5,5}};
         double[][] matriisi2 = {{2, 3},{2, -3},{12,-4}};
         double[][] yhteen = {{8, 0},{24, -6},{17,1}};
-        double[][] matrix = logiikka.yhteenlasku(matriisi1, matriisi2);
+        Matriisi m1 = new Matriisi(matriisi1);
+        Matriisi m2 = new Matriisi(matriisi2);
+        Matriisi matrix = logiikka.yhteenlasku(m1, m2);
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
-                double actual = matrix[i][j];
+                double actual = matrix.getArvot()[i][j];
                 double expected = yhteen[i][j];
                 assertTrue(actual == expected);
             }
@@ -109,10 +115,12 @@ public class LogiikkaTest {
     
       @Test(expected = RuntimeException.class)
     public void yhteenEiLasketaJosMatriisiEiOleNeliomatriisi() {
-        Logiikka testlogic = new Logiikka();
-        double[][] matA = {{2, 2}, {1, 2}, {4, 9}};
-        double[][] matB = {{2,2}};
-        double[][] yht = testlogic.yhteenlasku(matA, matB);
+        Logiikka logiikka = new Logiikka();
+        double[][] matriisi1 = {{2, 2}, {1, 2}, {4, 9}};
+        double[][] matriisi2 = {{2,2}};
+        Matriisi m1 = new Matriisi(matriisi1);
+        Matriisi m2 = new Matriisi(matriisi2);
+        Matriisi matrix = logiikka.yhteenlasku(m1, m2);
     }
     
     @Test
@@ -125,7 +133,8 @@ public class LogiikkaTest {
         matriisi[1][0] = 1;
         matriisi[1][1] = 3;
         matriisi[1][2] = 1;
-        double actual = logiikka.keskiarvo(matriisi, 1, -1);
+        Matriisi m = new Matriisi(matriisi);
+        double actual = logiikka.keskiarvo(m, 1, -1);
         double expected = 5.0/2;
         assertTrue(actual == expected);
     }
@@ -140,7 +149,8 @@ public class LogiikkaTest {
         matriisi[1][0] = 3;
         matriisi[1][1] = 2;
         matriisi[1][2] = 2;
-        double actual = logiikka.keskiarvo(matriisi, -1, 1);
+        Matriisi m = new Matriisi(matriisi);
+        double actual = logiikka.keskiarvo(m, -1, 1);
         double expected = 7.0/3;
         assertTrue(actual == expected);
     }
@@ -155,8 +165,9 @@ public class LogiikkaTest {
         matriisi[1][0] = 2;
         matriisi[1][1] = 2;
         matriisi[1][2] = 2;
-        double actual = logiikka.keskiarvo(matriisi, 2, -1);
-        double actual1 = logiikka.keskiarvo(matriisi, -1, 0);
+        Matriisi m = new Matriisi(matriisi);
+        double actual = logiikka.keskiarvo(m, 2, -1);
+        double actual1 = logiikka.keskiarvo(m, -1, 0);
         double expected = 3.0/2;
         double expected1 = 1.0;
         assertTrue(actual == expected);
@@ -173,7 +184,8 @@ public class LogiikkaTest {
         matriisi[1][0] = 1;
         matriisi[1][1] = 3;
         matriisi[1][2] = 1;
-        double actual = logiikka.summa(matriisi, 1, -1);
+        Matriisi m = new Matriisi(matriisi);
+        double actual = logiikka.summa(m, 1, -1);
         double expected = 5.0;
         assertTrue(actual == expected);
     }
@@ -188,7 +200,8 @@ public class LogiikkaTest {
         matriisi[1][0] = 2;
         matriisi[1][1] = 2;
         matriisi[1][2] = 2;
-        double actual = logiikka.summa(matriisi, -1, 1);
+        Matriisi m = new Matriisi(matriisi);
+        double actual = logiikka.summa(m, -1, 1);
         double expected = 6;
         assertTrue(actual == expected);
     }
@@ -203,8 +216,9 @@ public class LogiikkaTest {
         matriisi[1][0] = 2;
         matriisi[1][1] = 2;
         matriisi[1][2] = 2;
-        double actual = logiikka.summa(matriisi, 2, -1);
-        double actual1 = logiikka.summa(matriisi, -1,0);
+        Matriisi m = new Matriisi(matriisi);
+        double actual = logiikka.summa(m, 2, -1);
+        double actual1 = logiikka.summa(m, -1,0);
         double expected = 3.0;
         double expected1 = 3.0;
         assertTrue(actual == expected);
@@ -222,7 +236,8 @@ public class LogiikkaTest {
         matriisi[1][0] = 1;
         matriisi[1][1] = 3;
         matriisi[1][2] = 1;
-        double actual = logiikka.summaKoko(matriisi);
+        Matriisi m = new Matriisi(matriisi);
+        double actual = logiikka.summaKoko(m);
         double expected = 9;
         assertTrue(actual == expected);
     }
@@ -240,7 +255,8 @@ public class LogiikkaTest {
         matriisi[2][0] = 9;
         matriisi[2][1] = 8;
         matriisi[2][2] = 7;
-        double actual = logiikka.summaKoko(matriisi);
+        Matriisi m = new Matriisi(matriisi);
+        double actual = logiikka.summaKoko(m);
         double expected = 42;
         assertTrue(actual == expected);
     }
@@ -256,7 +272,8 @@ public class LogiikkaTest {
         matriisi[1][0] = 4;
         matriisi[1][1] = 5;
         matriisi[1][2] = 3;
-        double actual = logiikka.keskiarvoKoko(matriisi);
+        Matriisi m = new Matriisi(matriisi);
+        double actual = logiikka.keskiarvoKoko(m);
         double expected = 3;
         assertTrue(actual == expected);
     }
@@ -274,7 +291,8 @@ public class LogiikkaTest {
         matriisi[2][0] = 10;
         matriisi[2][1] = 8;
         matriisi[2][2] = 9;
-        double actual = logiikka.keskiarvoKoko(matriisi);
+        Matriisi m = new Matriisi(matriisi);
+        double actual = logiikka.keskiarvoKoko(m);
         double expected = 6;
         assertTrue(actual == expected);
     }
@@ -283,12 +301,14 @@ public class LogiikkaTest {
     public void testKertoma() {
         Logiikka logiikka = new Logiikka();
         double[][] matriisi1 = {{6, -3},{22, -3},{5,5}};
-        double[][] matriisi2 = {{1, 3},{2, 5}};
-        double[][] matrix = logiikka.kertolasku(matriisi1, matriisi2);
+        double[][] matriisi2 = {{1, 3},{2, 5}}; 
+        Matriisi m1 = new Matriisi(matriisi1);
+        Matriisi m2 = new Matriisi(matriisi2);
+        Matriisi matrix = logiikka.kertolasku(m1, m2);
         double [][] actual =  {{0, 3}, {16, 51}, {15, 40}};
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 2; j++) {
-                assertTrue(matrix[i][j] == actual[i][j]);
+                assertTrue(matrix.getArvot()[i][j] == actual[i][j]);
             }
         }
        
@@ -296,10 +316,12 @@ public class LogiikkaTest {
     
     @Test(expected = RuntimeException.class)
     public void kertomaEiLasketaJosMatriisiEiOleNeliomatriisi() {
-        Logiikka testlogic = new Logiikka();
-        double[][] matA = {{2, 2}, {1, 2}, {4, 9}};
-        double[][] matB = {{2,2}};
-        double[][] kert = testlogic.kertolasku(matA, matB);
+        Logiikka logiikka = new Logiikka();
+        double[][] matriisi1 = {{2, 2}, {1, 2}, {4, 9}};
+        double[][] matriisi2= {{2,2}};
+        Matriisi m1 = new Matriisi(matriisi1);
+        Matriisi m2 = new Matriisi(matriisi2);
+        Matriisi matrix = logiikka.kertolasku(m1, m2);;
     }
     
     
@@ -309,9 +331,10 @@ public class LogiikkaTest {
         double[][] matriisi = new double[1][2];
         matriisi[0][0] = 2;
         matriisi[0][1] = 1;
-        double[][] tulos = logiikka.skalaari(matriisi, -2);
-        double actual = matriisi[0][0];
-        double actual1 = matriisi[0][1];
+        Matriisi m = new Matriisi(matriisi);
+        Matriisi tulos = logiikka.skalaari(m, -2);
+        double actual = tulos.getArvot()[0][0];
+        double actual1 = tulos.getArvot()[0][1];
         double expected = -4;
         double expected1 = -2;
         assertTrue(actual == expected);
@@ -327,7 +350,8 @@ public class LogiikkaTest {
         matriisi[0][1] = 22;
         matriisi[1][0] = 3;
         matriisi[1][1] = 7;
-        double actual = logiikka.determinantti(matriisi);
+        Matriisi m = new Matriisi(matriisi);
+        double actual = logiikka.determinantti(m);
         double expected = 32;
         assertTrue(actual == expected);
     }
@@ -345,7 +369,8 @@ public class LogiikkaTest {
         matriisi[2][0] = 4;
         matriisi[2][1] = 5;
         matriisi[2][2] = 3;
-        double actual = logiikka.determinantti(matriisi);
+        Matriisi m = new Matriisi(matriisi);
+        double actual = logiikka.determinantti(m);
         double expected = 16;
         assertTrue(actual == expected);
     }
@@ -354,16 +379,18 @@ public class LogiikkaTest {
     public void testDeterminantti4x4() {
         Logiikka logiikka = new Logiikka();
         double[][] matriisi = {{3,7,5,0},{8,8,9,5},{1,7,8,9},{6,0,3,2}};
-        double actual = logiikka.determinantti(matriisi);
+        Matriisi m = new Matriisi(matriisi);
+        double actual = logiikka.determinantti(m);
         double expected = 178;
         assertTrue(actual == expected);
     }
     
     @Test(expected = RuntimeException.class)
     public void DetEiLasketaJosMatriisiEiOleNeliomatriisi() {
-        Logiikka testlogic = new Logiikka();
-        double[][] matA = {{2, 2}, {1, 2}, {4, 9}};
-        double det = testlogic.determinantti(matA);
+        Logiikka logiikka = new Logiikka();
+        double[][] matriisi = {{2, 2}, {1, 2}, {4, 9}};
+        Matriisi m = new Matriisi(matriisi);
+        double det = logiikka.determinantti(m);
     }
     
     @Test
@@ -379,16 +406,17 @@ public class LogiikkaTest {
         matriisit[0][1] = 3;
         matriisit[1][0] = 22;
         matriisit[1][1] = 7;
-        double[][] actual = logiikka.transpoosi(matriisi);
+        Matriisi m = new Matriisi(matriisi);
+        Matriisi actual = logiikka.transpoosi(m);
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
-                assertTrue(actual[i][j] == matriisit[i][j]);
+                assertTrue(actual.getArvot()[i][j] == matriisit[i][j]);
             }
         }
     }
     
     @Test
-    public void testTranspoosi3x2() {
+    public void testTranspoosi2x3() {
         Logiikka logiikka = new Logiikka();
         double[][] matriisi = new double[3][2];
         matriisi[0][0] = 3;
@@ -404,15 +432,16 @@ public class LogiikkaTest {
         matriisit[1][0] = 4;
         matriisit[1][1] = 2;
         matriisit[1][2] = 8;
-        double[][] actual = logiikka.transpoosi(matriisi);
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 3; j++) {
-                assertTrue(actual[i][j] == matriisit[i][j]);
+        Matriisi m = new Matriisi(matriisit);
+        Matriisi actual = logiikka.transpoosi(m);
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 2; j++) {
+                assertTrue(actual.getArvot()[i][j] == matriisi[i][j]);
             }
         }
     }
         @Test
-        public void testTranspoosi2x3() {
+        public void testTranspoosi3x2() {
             Logiikka logiikka = new Logiikka();
             double[][] matriisi = new double[3][2];
             matriisi[0][0] = 3;
@@ -428,10 +457,11 @@ public class LogiikkaTest {
             matriisit[1][0] = 4;
             matriisit[1][1] = 2;
             matriisit[1][2] = 8;
-            double[][] actual = logiikka.transpoosi(matriisit);
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 2; j++) {
-                    assertTrue(actual[i][j] == matriisi[i][j]);
+            Matriisi m = new Matriisi(matriisi);
+            Matriisi actual = logiikka.transpoosi(m);
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 3; j++) {
+                    assertTrue(actual.getArvot()[i][j] == matriisit[i][j]);
             }
         }
     }
@@ -444,7 +474,8 @@ public class LogiikkaTest {
         matriisi[0][1] = 22;
         matriisi[1][0] = 3;
         matriisi[1][1] = 7;
-        double actual = logiikka.determinanttiLU(matriisi);
+        Matriisi m = new Matriisi(matriisi);
+        double actual = logiikka.determinanttiLU(m);
         double expected = 32;
         assertTrue(actual == expected);
         }
@@ -462,7 +493,8 @@ public class LogiikkaTest {
             matriisi[2][0] = 4;
             matriisi[2][1] = 5;
             matriisi[2][2] = 3;
-            double actual = logiikka.determinanttiLU(matriisi);
+            Matriisi m = new Matriisi(matriisi);
+            double actual = logiikka.determinanttiLU(m);
             double expected = 16;
             assertTrue(actual == expected);
         }
@@ -471,7 +503,8 @@ public class LogiikkaTest {
     public void testDeterminantti4x4LU() {
         Logiikka logiikka = new Logiikka();
         double[][] matriisi = {{3,7,5,0},{8,8,9,5},{1,7,8,9},{6,0,3,2}};
-        double actual = logiikka.determinanttiLU(matriisi);
+        Matriisi m = new Matriisi(matriisi);
+        double actual = logiikka.determinanttiLU(m);
         double expected = 178;
         assertTrue(actual == expected);
     }
@@ -479,12 +512,13 @@ public class LogiikkaTest {
     @Test
     public void testDeterminant2x2withLUDecomposition() {
         Logiikka testlogic = new Logiikka();
-        double[][] matrix = new double[2][2];
-        matrix[0][0] = 14;
-        matrix[0][1] = 22;
-        matrix[1][0] = 3;
-        matrix[1][1] = 7;
-        double actual = testlogic.determinanttiLU(matrix);
+        double[][] matriisi = new double[2][2];
+        matriisi[0][0] = 14;
+        matriisi[0][1] = 22;
+        matriisi[1][0] = 3;
+        matriisi[1][1] = 7;
+        Matriisi m = new Matriisi(matriisi);
+        double actual = testlogic.determinanttiLU(m);
         double expected = 32;
         assertTrue(actual == expected);
     }
@@ -492,63 +526,67 @@ public class LogiikkaTest {
     @Test
     public void testDeterminant5x5withLUDecomposition() {
         Logiikka testlogic = new Logiikka();
-        double[][] matrix = new double[5][5];
-        matrix[0][0] = 1;
-        matrix[0][1] = 0;
-        matrix[0][2] = 1;
-        matrix[0][3] = 0;
-        matrix[0][4] = 1;
-        matrix[1][0] = 1;
-        matrix[1][1] = 4;
-        matrix[1][2] = 5;
-        matrix[1][3] = 6;
-        matrix[1][4] = 1;
-        matrix[2][0] = 10;
-        matrix[2][1] = 0;
-        matrix[2][2] = 1;
-        matrix[2][3] = 0;
-        matrix[2][4] = 10;
-        matrix[3][0] = 1;
-        matrix[3][1] = 7;
-        matrix[3][2] = 8;
-        matrix[3][3] = 9;
-        matrix[3][4] = 1;
-        matrix[4][0] = 1;
-        matrix[4][1] = 2;
-        matrix[4][2] = -1;
-        matrix[4][3] = 2;
-        matrix[4][4] = 1;
-        double actual = testlogic.determinanttiLU(matrix);
+        double[][] matriisi = new double[5][5];
+        matriisi[0][0] = 1;
+        matriisi[0][1] = 0;
+        matriisi[0][2] = 1;
+        matriisi[0][3] = 0;
+        matriisi[0][4] = 1;
+        matriisi[1][0] = 1;
+        matriisi[1][1] = 4;
+        matriisi[1][2] = 5;
+        matriisi[1][3] = 6;
+        matriisi[1][4] = 1;
+        matriisi[2][0] = 10;
+        matriisi[2][1] = 0;
+        matriisi[2][2] = 1;
+        matriisi[2][3] = 0;
+        matriisi[2][4] = 10;
+        matriisi[3][0] = 1;
+        matriisi[3][1] = 7;
+        matriisi[3][2] = 8;
+        matriisi[3][3] = 9;
+        matriisi[3][4] = 1;
+        matriisi[4][0] = 1;
+        matriisi[4][1] = 2;
+        matriisi[4][2] = -1;
+        matriisi[4][3] = 2;
+        matriisi[4][4] = 1;
+        Matriisi m = new Matriisi(matriisi);
+        double actual = testlogic.determinanttiLU(m);
         double expected = 0;
         assertTrue(actual == expected);
     }
     
     @Test(expected = RuntimeException.class)
     public void LUDetEiLasketaJosMatriisiEiOleNeliomatriisi() {
-        Logiikka testlogic = new Logiikka();
-        double[][] matA = {{2, 2}, {1, 2}, {4, 9}};
-        double det = testlogic.determinanttiLU(matA);
+        Logiikka logiikka = new Logiikka();
+        double[][] matriisi = {{2, 2}, {1, 2}, {4, 9}};
+        Matriisi m = new Matriisi(matriisi);
+        double det = logiikka.determinanttiLU(m);
     }
     
     @Test
     public void matriisinKaanteismatriisiPalauttaaOikein() {
-        Logiikka testlogic = new Logiikka();
-        double[][] matA = {{2, 2}, {1, 2}};
-        double[][] matB = {{1, -1}, {-0.5, 1}};
-        
-        double[][] kaant = testlogic.kaanteis(matA);
+        Logiikka logiikka = new Logiikka();
+        double[][] matriisi1 = {{2, 2}, {1, 2}};
+        double[][] matriisi2 = {{1, -1}, {-0.5, 1}};
+        Matriisi m1 = new Matriisi(matriisi1);
+        Matriisi m2 = new Matriisi(matriisi2);
+        Matriisi kaant = logiikka.kaanteis(m1);
         
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
-                assertTrue(matB[i][j] == kaant[i][j]);
+                assertTrue(matriisi2[i][j] == kaant.getArvot()[i][j]);
             }
         }
     }
     
     @Test(expected = RuntimeException.class)
     public void kaanteismatriisiaEiLasketaJosMatriisiEiOleNeliomatriisi() {
-        Logiikka testlogic = new Logiikka();
-        double[][] matA = {{2, 2}, {1, 2}, {4, 9}};
-        double[][] kaant = testlogic.kaanteis(matA);
+        Logiikka logiikka = new Logiikka();
+        double[][] matriisi = {{2, 2}, {1, 2}, {4, 9}};
+        Matriisi m = new Matriisi(matriisi);
+        Matriisi kaant = logiikka.kaanteis(m);
     }
 }
