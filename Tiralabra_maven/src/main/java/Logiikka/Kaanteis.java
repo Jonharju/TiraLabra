@@ -109,8 +109,7 @@ public class Kaanteis {
      * Vähentää ensimmäisestä rivistä toista riviä multiplier-parametrin lukumäärän
      * @param row1
      *@param row2 
-     * @param multiplier@param 
-     */
+     * @param multiplier     */
     public void vahennaRiviKertoimella(double[] row1, double[] row2, double multiplier) {
         if (row1.length != row2.length) {
             throw new IllegalArgumentException("Rivien on oltava yhtä pitkiä");
@@ -125,9 +124,7 @@ public class Kaanteis {
      * Vaihtaa kahden rivin paikkaa matriisissa
      *    * @param 
      * @param matrix
-     * @param row1
-     * @param
-     * @param row2     */
+     * @param row1@param row2     */
     public void vaihdaRivit(double[][] matrix, int row1, int row2) {
         double[] temp = matrix[row1];
         

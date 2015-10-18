@@ -9,6 +9,11 @@ import Logiikka.Logiikka;
  */
 public class App {
     private static Logiikka l = new Logiikka();
+
+    /**
+     *
+     * @param args
+     */
     public static void main( String[] args ) {
         Logiikka logiikka = new Logiikka();
         UI kayttis = new UI();

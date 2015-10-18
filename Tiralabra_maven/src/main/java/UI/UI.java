@@ -114,6 +114,9 @@ public class UI{
         }
     }
     
+    /**
+     *
+     */
     public static void yhteen(){
         System.out.println("Syötä ensimmäinen matriisi");
             Matriisi m1 = syotettyMatriisi();
@@ -132,6 +135,9 @@ public class UI{
             }
     }
     
+    /**
+     *
+     */
     public static void rsSumma(){
         Scanner skanneri = new Scanner(System.in);
         System.out.println("Syötä matriisi");
@@ -154,6 +160,9 @@ public class UI{
             System.out.println("Alkioiden summa on " + summa);
     }
     
+    /**
+     *
+     */
     public static void rsKeskiarvo(){
         Scanner skanneri = new Scanner(System.in);
         System.out.println("Syötä matriisi");
@@ -176,6 +185,9 @@ public class UI{
         
     }
     
+    /**
+     *
+     */
     public static void kertolasku(){
         System.out.println("Syötä ensimmäinen matriisi");
             Matriisi m1 = syotettyMatriisi();
@@ -191,12 +203,19 @@ public class UI{
             }
     }
     
+    /**
+     *
+     */
     public static void summa(){
         System.out.println("Syötä matriisi");
         Matriisi m = syotettyMatriisi();    
         double summa = logiikka.summaKoko(m);
         System.out.println("Alkioiden summa on " + summa);
     }
+
+    /**
+     *
+     */
     public static void keskiarvo(){
         System.out.println("Syötä matriisi");
             Matriisi m = syotettyMatriisi();
@@ -204,6 +223,9 @@ public class UI{
             System.out.println("Alkioiden keskiarvo on " + keskiarvo);
     }
     
+    /**
+     *
+     */
     public static void skalaari(){
         Scanner skanneri = new Scanner(System.in);
         System.out.println("Syötä matriisi");
@@ -216,6 +238,9 @@ public class UI{
             tulostaMatriisi(tulos);
     }
     
+    /**
+     *
+     */
     public static void determinantti(){
          System.out.println("Syötä matriisi");
             Matriisi m = syotettyMatriisi();
@@ -223,6 +248,9 @@ public class UI{
             System.out.println("Matriisin determinantti on: " + tulos);
     }
     
+    /**
+     *
+     */
     public static void transpoosi(){
         System.out.println("Syötä matriisi");
             Matriisi m = syotettyMatriisi();
@@ -231,6 +259,9 @@ public class UI{
             tulostaMatriisi(tulos);
     }
     
+    /**
+     *
+     */
     public static void kaanteis(){
         System.out.println("Syötä matriisi");
             Matriisi m = syotettyMatriisi();
